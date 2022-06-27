@@ -16,9 +16,9 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 {% for post in object_list %}
                     <div class="post-preview">
-                        <a href="{% url 'post_detail' slug=post.slug %}">
+                        <a href="{% url 'blog:post_detail' slug=post.slug %}">
                             <h2 class="post-title">{{ post.title }}</h2>
-                            <h3 class="post-subtitle">{{ post.content|safe|truncatechars:255 }}</h3>
+                            <h3 class="post-subtitle">{{ post.description }}</h3>
                         </a>
                         <p class="post-meta">
                             Posted by

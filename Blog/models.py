@@ -11,7 +11,7 @@ from Blog.fields import WEBPField
 from accounts.models import CustomUser
 
 
-def image_folder(instance, filename):
+def image_folder():
     return f'posts/title_images/{datetime.now().strftime("%Y/%m/%d")}/{uuid.uuid4().hex}.webp'
 
 
@@ -27,12 +27,12 @@ class Post(models.Model):
         PUBLIC = 'PUB', _('Published')
         PRIVATE = 'PRI', _('Private')
 
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=200, unique=True, null=False)
     title_image = WEBPField(upload_to=image_folder, validators=[validate_image], default='posts/home-bg.webp',
-                            null=False)
-    slug = models.SlugField(max_length=200, unique=True)
+                            null=False, verbose_name="Image")
+    slug = models.SlugField(max_length=200, unique=True, null=False)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts')
-
+    description = models.TextField(max_length=1000)
     content = HTMLField()
 
     updated_date = models.DateTimeField(auto_now=True)

@@ -45,6 +45,11 @@
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link link-primary px-lg-3 py-3 py-lg-4" style="text-decoration: underline;"
+                           href="{% url 'blog:post_create' %}">Create Post</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link link-primary px-lg-3 py-3 py-lg-4" style="text-decoration: underline;"
                            href="{% url 'logout' %}">Logout, {{ user.username }}</a>
                     </li>
                 {% endif %}
