@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.http import Http404, HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -14,8 +15,32 @@ class PostList(generic.ListView):
             .filter(status=Post.PostStatus.PUBLIC)\
             .order_by('-created_date')\
             .select_related()\
-            .values('title', 'content', 'description', 'author__username', 'created_date', 'slug')
+            .values('title', 'content', 'description', 'author_id', 'author__username', 'created_date', 'slug')
+    paginate_by = 5
     template_name = 'post_list.html'
+
+
+class PostListUser(generic.ListView):
+    paginate_by = 5
+    template_name = 'post_list_user.html'
+
+    def get_queryset(self):
+        queryset = QuerySet
+        if self.kwargs['author_id'] is not self.request.user.pk:
+            queryset = Post.objects \
+                .filter(author=self.kwargs['author_id'], status=Post.PostStatus.PUBLIC) \
+                .order_by('-created_date') \
+                .select_related() \
+                .values('title', 'content', 'description', 'author_id', 'author__username', 'created_date', 'slug', 'status')
+        else:
+            queryset = Post.objects \
+                .filter(author=self.kwargs['author_id']) \
+                .order_by('-created_date') \
+                .select_related() \
+                .values('title', 'content', 'description', 'author_id', 'author__username', 'created_date', 'slug',
+                        'status')
+
+        return queryset
 
 
 class PostDetail(generic.DetailView):
