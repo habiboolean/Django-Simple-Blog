@@ -2,25 +2,35 @@
 {% load static %}
 
 {% block header_image %}
-background-image: url('{{ post.title_image.url }}')
+    background-image: url('{{ post.title_image.url }}')
 {% endblock header_image %}
 
 {% block header_title %}
     <h1>{{ post.title }}</h1>
     <span class="meta">
-        Posted by <a href="#!">{{ post.author.username }}</a> on {{ post.created_date }}
+        Posted by
+        <a href="{% url 'blog:author_filter' author_id=post.author_id %}">{{ post.author.username }}</a>
+        on {{ post.created_date }}
     </span>
+    {% if post.author.username == user.username %}
+        <br/>
+        <span class="meta">
+            <b>
+                <a href="{% url 'blog:post_edit' slug=post.slug %}">EDIT POST</a>
+            </b>
+        </span>
+    {% endif %}
 {% endblock header_title %}
 
 {% block Content %}
-<article class="mb-4">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                {{ post.content | safe }}
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {{ post.content | safe }}
+                </div>
             </div>
         </div>
-    </div>
-</article>
+    </article>
 
 {% endblock Content %}
