@@ -35,7 +35,7 @@ class Post(models.Model):
     description = models.TextField(max_length=1000)
     content = HTMLField()
 
-    updated_date = models.DateTimeField(auto_now=True)
+    # updated_date = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=3,

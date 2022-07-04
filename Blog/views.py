@@ -4,9 +4,28 @@ from django.http import Http404, HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
+from rest_framework import viewsets, permissions, generics
+from rest_framework.decorators import api_view
 
 import Blog.models
 from .models import Post
+from django_filters.rest_framework import DjangoFilterBackend
+from .serializers import *
+
+
+class UserListViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class PostListViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all().order_by('-created_date')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['author', 'status']
+    serializer_class = PostListSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 
 class PostList(generic.ListView):
