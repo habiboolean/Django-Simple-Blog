@@ -20,12 +20,20 @@ class UserListViewSet(viewsets.ModelViewSet):
 
 
 class PostListViewSet(viewsets.ModelViewSet):
+    class Meta:
+        model = models.Post
+        fields = ('title_image', 'slug')
+
     queryset = Post.objects.all().order_by('-created_date')
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['author', 'status']
     serializer_class = PostListSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    # def create(self, request, *args, **kwargs):
+    #     file = request.data['file']
+    #     Post.objects.create(title_image=file)
+    #     super().create(self,request,*args,**kwargs)
 
 
 class PostList(generic.ListView):

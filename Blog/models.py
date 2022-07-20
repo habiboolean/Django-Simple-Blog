@@ -11,7 +11,7 @@ from Blog.fields import WEBPField
 from accounts.models import CustomUser
 
 
-def image_folder():
+def image_folder(instance, filename):
     return f'posts/title_images/{datetime.now().strftime("%Y/%m/%d")}/{uuid.uuid4().hex}.webp'
 
 

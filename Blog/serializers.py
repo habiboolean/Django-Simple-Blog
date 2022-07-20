@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from Blog import models
 from accounts.models import CustomUser
+from Blog.fields import WEBPField
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,7 +17,7 @@ class PostListSerializer(serializers.ModelSerializer):
 
     slug = serializers.SerializerMethodField(read_only=True)
     url = serializers.HyperlinkedIdentityField(view_name='blog:posts-detail', read_only=True)
-
+    title_image = serializers.ImageField()
 
     class Meta:
         model = models.Post
@@ -36,10 +37,6 @@ class PostListSerializer(serializers.ModelSerializer):
             fields.pop('url', None)
         return fields
 
+
     def get_slug(self, post: models.Post):
         return slugify(post.title)
-
-    # def get_detail_url(self, post: models.Post):
-    #     request = self.context.get('request')
-    #     post_id = post.id
-    #     return request.build_absolute_uri(post_id)
