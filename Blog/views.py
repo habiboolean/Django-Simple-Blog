@@ -16,7 +16,7 @@ from .serializers import *
 class UserListViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class PostListViewSet(viewsets.ModelViewSet):
