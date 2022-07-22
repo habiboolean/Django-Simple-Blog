@@ -30,11 +30,6 @@ class PostListViewSet(viewsets.ModelViewSet):
     serializer_class = PostListSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    # def create(self, request, *args, **kwargs):
-    #     file = request.data['file']
-    #     Post.objects.create(title_image=file)
-    #     super().create(self,request,*args,**kwargs)
-
 
 class PostList(generic.ListView):
     queryset = \
