@@ -19,13 +19,18 @@ https://user-images.githubusercontent.com/105993976/180430612-0b19d68c-9c58-4534
 
 ## Features:
 - **Login / Register:** abstract user class implemented for easy customisation as [django-docs recommend](https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project)
-- **WYSIWYG Editor:** TinyMCE used for text editor.
+- **WYSIWYG Editor:** TinyMCE used as text editor.
 - **Image Uploading:** Users can upload images for their posts, that will be converted into .webp format automatically,to save some space. Also images get into **/media/posts/year/month/day/** to reduce load on a File System
 - **DRF API:** Api for future frontend side of the project. JWT not implemented because of simplicity of the project.
 - **Posting / Editing:** Registered users can post and edit own posts
 - **Private posts:** Users can make their posts private
 - **Filtering:** Clicking on author username will show public posts of this author. Or public + private posts of current logged user.
 
+## TODO:
+- Cover with tests (pytest)
+- Add comments to posts
+- Likes/Dislikes rating system
+- Search
 
 ## Quick Start
 
